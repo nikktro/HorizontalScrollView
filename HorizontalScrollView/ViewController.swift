@@ -16,8 +16,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         filterView.dataSource = filterDataSource
+        filterView.delegate = self
     }
 
 
 }
 
+extension ViewController: FilterViewDelegate {
+    func didRemoveItemAtIndex(index: Int, item: String) {
+        debugPrint("Removed item \(item) with index = \(index)")
+    }
+}

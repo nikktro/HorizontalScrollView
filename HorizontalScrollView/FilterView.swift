@@ -7,8 +7,18 @@
 
 import UIKit
 
+protocol FilterViewDelegate: AnyObject {
+    func didRemoveItemAtIndex(index: Int, item: String)
+}
+
+extension FilterViewDelegate {
+    func didRemoveItemAtIndex(index: Int, item: String) {}
+}
+
 class FilterView: UIView {
 
+    weak var delegate: FilterViewDelegate?
+    
     var dataSource: [String] = [] {
         didSet {
             renderUI()
@@ -102,8 +112,17 @@ class FilterView: UIView {
     }
     
     @objc private func removeButtonAction(sender: UIButton) {
-        
+        self.delegate?.didRemoveItemAtIndex(index: sender.tag, item: dataSource[sender.tag])
+        stackView.removeAllSubviews()
+        dataSource.remove(at: sender.tag)
     }
     
-    
+}
+
+extension UIStackView {
+    func removeAllSubviews() {
+        subviews.forEach { view in
+            view.removeFromSuperview()
+        }
+    }
 }
