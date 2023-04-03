@@ -9,9 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var filterView: FilterView!
+    let filterDataSource = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        filterView.dataSource = filterDataSource
     }
 
 
